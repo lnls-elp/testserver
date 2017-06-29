@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
-from flask_mysql import MySQL
+from flaskext.mysql import MySQL
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -29,7 +29,7 @@ class AddEquipament(Resource):
 
             conn = mysql.connect()
             cursor = conn.cursor()
-            cursor.callproc('sp_AddUser', (_equipament_serial, _equipament_type))
+            cursor.callproc('spAddEquipament', (_equipament_serial, _equipament_type))
             data = cursor.fetchall()
 
             if len(data) is 0:
