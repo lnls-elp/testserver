@@ -29,7 +29,7 @@ class AddEquipament(Resource):
 
             conn = mysql.connect()
             cursor = conn.cursor()
-            cursor.callproc('spAddEquipament', (_equipament_serial, _equipament_type))
+            cursor.callproc('spCreateEquipament', (_equipament_serial, _equipament_type))
             data = cursor.fetchall()
 
             if len(data) is 0:
@@ -44,4 +44,4 @@ class AddEquipament(Resource):
 api.add_resource(AddEquipament, '/AddEquipament')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0:5000')
