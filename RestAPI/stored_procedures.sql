@@ -3,7 +3,7 @@ use testserver;
 DROP procedure IF EXISTS spAddEquipament;
 DELIMITER $$
 use testserver$$
-CREATE PROCEDURE spAddEquipament (
+CREATE PROCEDURE spAddDevice (
   IN p_idEquipamento  int,
   IN p_tipo           varchar(45)
 )

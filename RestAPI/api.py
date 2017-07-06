@@ -15,7 +15,7 @@ mysql.init_app(app)
 
 api = Api(app)
 
-class AddEquipament(Resource):
+class AddDevice(Resource):
     def post(self):
         try:
             #Parse the arguments
@@ -29,7 +29,7 @@ class AddEquipament(Resource):
 
             conn = mysql.connect()
             cursor = conn.cursor()
-            cursor.callproc('spCreateEquipament', (_equipament_serial, _equipament_type))
+            cursor.callproc('spAddDevice', (_equipament_serial, _equipament_type))
             data = cursor.fetchall()
 
             if len(data) is 0:
@@ -41,7 +41,8 @@ class AddEquipament(Resource):
         except Exception as e:
             return {'error': str(e)}
 
-api.add_resource(AddEquipament, '/AddEquipament')
+api.add_resource(AddDevice, '/AddDevice')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0:5000')
+    #app.run(host='0.0.0.0:5000')
+    app.run(debug=True)
