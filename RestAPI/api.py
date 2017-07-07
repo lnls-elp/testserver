@@ -8,14 +8,14 @@ app = Flask(__name__)
 ## MySQL configurations
 app.config['MYSQL_DATABASE_USER'] = 'root'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
-app.config['MYSQL_DATABASE_DB'] = 'testserver'
+app.config['MYSQL_DATABASE_DB'] = 'testserverdb'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 
 mysql.init_app(app)
 
 api = Api(app)
 
-class AddDevice(Resource):
+class AddHradc(Resource):
     def post(self):
         try:
             #Parse the arguments
@@ -29,7 +29,7 @@ class AddDevice(Resource):
 
             conn = mysql.connect()
             cursor = conn.cursor()
-            cursor.callproc('spAddDevice', (_equipament_serial, _equipament_type))
+            cursor.callproc('spAddHradc', (_equipament_serial, _equipament_type))
             data = cursor.fetchall()
 
             if len(data) is 0:
@@ -41,7 +41,7 @@ class AddDevice(Resource):
         except Exception as e:
             return {'error': str(e)}
 
-api.add_resource(AddDevice, '/AddDevice')
+api.add_resource(AddHradc, '/AddHradc')
 
 if __name__ == '__main__':
     #app.run(host='0.0.0.0:5000')
