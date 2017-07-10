@@ -187,11 +187,211 @@ class AddLogDcct(Resource):
         except Exception as e:
             return {'error': str(e)}
 
+class AddFonte(Resource):
+    def post(self):
+        try:
+            #TODO: Fill implementation for this resource
+            parser = reqparse.RequestParser()
+            #TODO: Add arguments
+            args = parser.parse_args()
+
+            #TODO: create variables for callproc
+
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            #cursor.callproc('sp_add_fonte', (_resultado_teste, _numero_serie_dcct))
+
+            data = cursor.fetchall()
+
+            if len(data) is 0:
+                conn.commit()
+                return {'StatusCode':'200', 'Message': 'Sucesso'}
+            else:
+                return {'StatusCode':'1000', 'Message': str(data[0])}
+        except Exception as e:
+            return {'error': str(e)}
+
+class AddLogFonte(Resource):
+    def post(self):
+        try:
+            #TODO: Fill implementation for this resource
+            parser = reqparse.RequestParser()
+            #TODO: Add arguments
+            args = parser.parse_args()
+
+            #TODO: create variables for callproc
+
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            #cursor.callproc('sp_add_log_fonte', (_resultado_teste, _numero_serie_dcct))
+
+            data = cursor.fetchall()
+
+            if len(data) is 0:
+                conn.commit()
+                return {'StatusCode':'200', 'Message': 'Sucesso'}
+            else:
+                return {'StatusCode':'1000', 'Message': str(data[0])}
+        except Exception as e:
+            return {'error': str(e)}
+
+class AddBastidor(Resource):
+    def post(self):
+        try:
+            #TODO: Fill implementation for this resource
+            parser = reqparse.RequestParser()
+            #TODO: Add arguments
+            args = parser.parse_args()
+
+            #TODO: create variables for callproc
+
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            #cursor.callproc('sp_add_bastidor', (_resultado_teste, _numero_serie_dcct))
+
+            data = cursor.fetchall()
+
+            if len(data) is 0:
+                conn.commit()
+                return {'StatusCode':'200', 'Message': 'Sucesso'}
+            else:
+                return {'StatusCode':'1000', 'Message': str(data[0])}
+        except Exception as e:
+            return {'error': str(e)}
+
+class AddLogBastidor(Resource):
+    def post(self):
+        try:
+            #TODO: Fill implementation for this resource
+            parser = reqparse.RequestParser()
+            #TODO: Add arguments
+            args = parser.parse_args()
+
+            #TODO: create variables for callproc
+
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            #cursor.callproc('sp_add_log_bastidor', (_resultado_teste, _numero_serie_dcct))
+
+            data = cursor.fetchall()
+
+            if len(data) is 0:
+                conn.commit()
+                return {'StatusCode':'200', 'Message': 'Sucesso'}
+            else:
+                return {'StatusCode':'1000', 'Message': str(data[0])}
+        except Exception as e:
+            return {'error': str(e)}
+
+class AddUdc(Resource):
+    def post(self):
+        try:
+            #TODO: Fill implementation for this resource
+            parser = reqparse.RequestParser()
+            #TODO: Add arguments
+            args = parser.parse_args()
+
+            #TODO: create variables for callproc
+
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            #cursor.callproc('sp_add_udc', (_resultado_teste, _numero_serie_dcct))
+
+            data = cursor.fetchall()
+
+            if len(data) is 0:
+                conn.commit()
+                return {'StatusCode':'200', 'Message': 'Sucesso'}
+            else:
+                return {'StatusCode':'1000', 'Message': str(data[0])}
+        except Exception as e:
+            return {'error': str(e)}
+
+class AddLogUdc(Resource):
+    def post(self):
+        try:
+            #TODO: Fill implementation for this resource
+            parser = reqparse.RequestParser()
+            #TODO: Add arguments
+            args = parser.parse_args()
+
+            #TODO: create variables for callproc
+
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            #cursor.callproc('sp_add_log_udc', (_resultado_teste, _numero_serie_dcct))
+
+            data = cursor.fetchall()
+
+            if len(data) is 0:
+                conn.commit()
+                return {'StatusCode':'200', 'Message': 'Sucesso'}
+            else:
+                return {'StatusCode':'1000', 'Message': str(data[0])}
+        except Exception as e:
+            return {'error': str(e)}
+
+class AddModuloPotencia(Resource):
+    def post(self):
+        try:
+            #TODO: Fill implementation for this resource
+            parser = reqparse.RequestParser()
+            #TODO: Add arguments
+            args = parser.parse_args()
+
+            #TODO: create variables for callproc
+
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            #cursor.callproc('sp_add_modulo_potencia', (_resultado_teste, _numero_serie_dcct))
+
+            data = cursor.fetchall()
+
+            if len(data) is 0:
+                conn.commit()
+                return {'StatusCode':'200', 'Message': 'Sucesso'}
+            else:
+                return {'StatusCode':'1000', 'Message': str(data[0])}
+        except Exception as e:
+            return {'error': str(e)}
+
+class AddLogModuloPotencia(Resource):
+    def post(self):
+        try:
+            #TODO: Fill implementation for this resource
+            parser = reqparse.RequestParser()
+            #TODO: Add arguments
+            args = parser.parse_args()
+
+            #TODO: create variables for callproc
+
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            #cursor.callproc('sp_add_log_modulo_potencia', (_resultado_teste, _numero_serie_dcct))
+
+            data = cursor.fetchall()
+
+            if len(data) is 0:
+                conn.commit()
+                return {'StatusCode':'200', 'Message': 'Sucesso'}
+            else:
+                return {'StatusCode':'1000', 'Message': str(data[0])}
+        except Exception as e:
+            return {'error': str(e)}
+
 api.add_resource(AddHradc, '/AddHradc')
 api.add_resource(AddLogHradc, '/AddLogHradc')
 api.add_resource(AddCalibHradc, '/AddCalibHradc')
 api.add_resource(AddDcct, '/AddDcct')
 api.add_resource(AddLogDcct, '/AddLogDcct')
+api.add_resource(AddFonte, '/AddFonte')
+api.add_resource(AddLogFonte, '/AddLogFonte')
+api.add_resource(AddBastidor, 'AddBastidor')
+api.add_resource(AddLogBastidor, '/AddLogBastidor')
+api.add_resource(AddUdc, '/AddUdc')
+api.add_resource(AddLogUdc, '/AddLogUdc')
+api.add_resource(AddModuloPotencia, '/AddModuloPotencia')
+api.add_resource(AddLogModuloPotencia, '/AddLogModuloPotencia')
 
 if __name__ == '__main__':
     #app.run(host='0.0.0.0:5000')
