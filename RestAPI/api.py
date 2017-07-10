@@ -168,14 +168,41 @@ class AddLogDcct(Resource):
             parser = reqparse.RequestParser()
             parser.add_argument('resultado_teste', type=str)
             parser.add_argument('numero_serie_dcct', type=int)
+            parser.add_argument('iload0', type=double)
+            parser.add_argument('iload1', type=double)
+            parser.add_argument('iload2', type=double)
+            parser.add_argument('iload3', type=double)
+            parser.add_argument('iload4', type=double)
+            parser.add_argument('iload5', type=double)
+            parser.add_argument('iload6', type=double)
+            parser.add_argument('iload7', type=double)
+            parser.add_argument('iload8', type=double)
+            parser.add_argument('iload9', type=double)
+            parser.add_argument('iload10', type=double)
+
             args = parser.parse_args()
 
             _resultado_teste        = args['resultado_teste']
             _numero_serie_dcct      = args['numero_serie_dcct']
+            _iload0                 = args['iload0']
+            _iload1                 = args['iload1']
+            _iload2                 = args['iload2']
+            _iload3                 = args['iload3']
+            _iload4                 = args['iload4']
+            _iload5                 = args['iload5']
+            _iload6                 = args['iload6']
+            _iload7                 = args['iload7']
+            _iload8                 = args['iload8']
+            _iload9                 = args['iload9']
+            _iload10                = args['iload10']
+
 
             conn = mysql.connect()
             cursor = conn.cursor()
-            cursor.callproc('sp_add_log_dcct', (_resultado_teste, _numero_serie_dcct))
+            cursor.callproc('sp_add_log_dcct', (_resultado_teste, _numero_serie_dcct,
+                                                _iload0, _iload1, _iload2, _iload3,
+                                                _iload4, _iload5, _iload6, _iload7,
+                                                _iload8, _iload9, _iload10))
 
             data = cursor.fetchall()
 
