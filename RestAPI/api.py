@@ -94,17 +94,17 @@ class AddCalibHradc(Resource):
     def post(self):
         try:
             parser = reqparse.RequestParser()
-            parser.add_argument('temperatura_hradc', type=double)
-            parser.add_argument('temperatura_dmm', type=double)
-            parser.add_argument('temperatura_fonte', type=double)
+            parser.add_argument('temperatura_hradc', type=float)
+            parser.add_argument('temperatura_dmm', type=float)
+            parser.add_argument('temperatura_fonte', type=float)
             parser.add_argument('nome_operador', type=str)
-            parser.add_argument('ganho_vin', type=double)
-            parser.add_argument('offset_vin', type=double)
-            parser.add_argument('ganho_lin', type=double)
-            parser.add_argument('offset_lin', type=double)
-            parser.add_argument('vref_p', type=double)
-            parser.add_argument('vref_n', type=double)
-            parser.add_argument('gnd', type=double)
+            parser.add_argument('ganho_vin', type=float)
+            parser.add_argument('offset_vin', type=float)
+            parser.add_argument('ganho_lin', type=float)
+            parser.add_argument('offset_lin', type=float)
+            parser.add_argument('vref_p', type=float)
+            parser.add_argument('vref_n', type=float)
+            parser.add_argument('gnd', type=float)
             parser.add_argument('numero_serie_hradc', type=str)
             args = parser.parse_args()
 
@@ -168,17 +168,18 @@ class AddLogDcct(Resource):
             parser = reqparse.RequestParser()
             parser.add_argument('resultado_teste', type=str)
             parser.add_argument('numero_serie_dcct', type=int)
-            parser.add_argument('iload0', type=double)
-            parser.add_argument('iload1', type=double)
-            parser.add_argument('iload2', type=double)
-            parser.add_argument('iload3', type=double)
-            parser.add_argument('iload4', type=double)
-            parser.add_argument('iload5', type=double)
-            parser.add_argument('iload6', type=double)
-            parser.add_argument('iload7', type=double)
-            parser.add_argument('iload8', type=double)
-            parser.add_argument('iload9', type=double)
-            parser.add_argument('iload10', type=double)
+            parser.add_argument('iload0', type=float)
+            parser.add_argument('iload1', type=float)
+            parser.add_argument('iload2', type=float)
+            parser.add_argument('iload3', type=float)
+            parser.add_argument('iload4', type=float)
+            parser.add_argument('iload5', type=float)
+            parser.add_argument('iload6', type=float)
+            parser.add_argument('iload7', type=float)
+            parser.add_argument('iload8', type=float)
+            parser.add_argument('iload9', type=float)
+            parser.add_argument('iload10', type=float)
+            parser.add_argument('details', type=str)
 
             args = parser.parse_args()
 
@@ -195,6 +196,7 @@ class AddLogDcct(Resource):
             _iload8                 = args['iload8']
             _iload9                 = args['iload9']
             _iload10                = args['iload10']
+            _details                = args['details']
 
 
             conn = mysql.connect()
@@ -202,7 +204,7 @@ class AddLogDcct(Resource):
             cursor.callproc('sp_add_log_dcct', (_resultado_teste, _numero_serie_dcct,
                                                 _iload0, _iload1, _iload2, _iload3,
                                                 _iload4, _iload5, _iload6, _iload7,
-                                                _iload8, _iload9, _iload10))
+                                                _iload8, _iload9, _iload10, _details))
 
             data = cursor.fetchall()
 
@@ -413,7 +415,7 @@ api.add_resource(AddDcct, '/AddDcct')
 api.add_resource(AddLogDcct, '/AddLogDcct')
 api.add_resource(AddFonte, '/AddFonte')
 api.add_resource(AddLogFonte, '/AddLogFonte')
-api.add_resource(AddBastidor, 'AddBastidor')
+api.add_resource(AddBastidor, '/AddBastidor')
 api.add_resource(AddLogBastidor, '/AddLogBastidor')
 api.add_resource(AddUdc, '/AddUdc')
 api.add_resource(AddLogUdc, '/AddLogUdc')
