@@ -360,20 +360,18 @@ class AddLogUdc(Resource):
         except Exception as e:
             return {'error': str(e)}
 
-class AddModuloPotencia(Resource):
+class AddPowerModule(Resource):
     def post(self):
         try:
-            #TODO: Fill implementation for this resource
             parser = reqparse.RequestParser()
-            #TODO: Add arguments
+            parser.add_argument('numero_serie', type=int)
             args = parser.parse_args()
 
-            #TODO: create variables for callproc
+            _numero_serie           = args['numero_serie']
 
             conn = mysql.connect()
             cursor = conn.cursor()
-            #cursor.callproc('sp_add_modulo_potencia', (_resultado_teste, _numero_serie_dcct))
-
+            cursor.callproc('sp_add_power_module', (_numero_serie,))
             data = cursor.fetchall()
 
             if len(data) is 0:
@@ -384,19 +382,63 @@ class AddModuloPotencia(Resource):
         except Exception as e:
             return {'error': str(e)}
 
-class AddLogModuloPotencia(Resource):
+class AddLogPowerModule(Resource):
     def post(self):
         try:
-            #TODO: Fill implementation for this resource
             parser = reqparse.RequestParser()
-            #TODO: Add arguments
+            parser.add_argument('resultado_teste', type=str)
+            parser.add_argument('numero_serie_dcct', type=int)
+            parser.add_argument('iload0', type=float)
+            parser.add_argument('iload1', type=float)
+            parser.add_argument('iload2', type=float)
+            parser.add_argument('iload3', type=float)
+            parser.add_argument('iload4', type=float)
+            parser.add_argument('iload5', type=float)
+            parser.add_argument('iload6', type=float)
+            parser.add_argument('iload7', type=float)
+            parser.add_argument('iload8', type=float)
+            parser.add_argument('iload9', type=float)
+            parser.add_argument('iload10', type=float)
+            parser.add_argument('details', type=str)
+
             args = parser.parse_args()
 
-            #TODO: create variables for callproc
+            _resultado_teste        = args['resultado_teste']
+            _numero_serie_dcct      = args['numero_serie_dcct']
+            _iload0                 = args['iload0']
+            _iload1                 = args['iload1']
+            _iload2                 = args['iload2']
+            _iload3                 = args['iload3']
+            _iload4                 = args['iload4']
+            _iload5                 = args['iload5']
+            _vload0                 = args['vload0']
+            _vload1                 = args['vload1']
+            _vload2                 = args['vload2']
+            _vload3                 = args['vload3']
+            _vload4                 = args['vload4']
+            _vload5                 = args['vload5']
+            _vdclink0               = args['vdclink0']
+            _vdclink1               = args['vdclink1']
+            _vdclink2               = args['vdclink2']
+            _vdclink3               = args['vdclink3']
+            _vdclink4               = args['vdclink4']
+            _vdclink5               = args['vdclink5']
+            _temperatura            = args['temperatura0']
+            _temperatura            = args['temperatura1']
+            _temperatura            = args['temperatura2']
+            _temperatura            = args['temperatura3']
+            _temperatura            = args['temperatura4']
+            _temperatura            = args['temperatura5']
+            _details                = args['details']
 
             conn = mysql.connect()
             cursor = conn.cursor()
-            #cursor.callproc('sp_add_log_modulo_potencia', (_resultado_teste, _numero_serie_dcct))
+            cursor.callproc('sp_add_log_power_module', (_resultado_teste, _numero_serie_dcct,
+                            _iload0, _iload1, _iload2, _iload3, _iload4, _iload5, _vload0,
+                            _vload1, _vload2, _vload3, _vload4, _vload5, _vdclink0, _vdclink1,
+                            _vdclink2, _vdclink3, _vdclink4, _vdclink5, _temperatura0,
+                            _temperatura1, _temperatura2, _temperatura3, _temperatura4,
+                            _temperatura5,))
 
             data = cursor.fetchall()
 
@@ -419,8 +461,8 @@ api.add_resource(AddBastidor, '/AddBastidor')
 api.add_resource(AddLogBastidor, '/AddLogBastidor')
 api.add_resource(AddUdc, '/AddUdc')
 api.add_resource(AddLogUdc, '/AddLogUdc')
-api.add_resource(AddModuloPotencia, '/AddModuloPotencia')
-api.add_resource(AddLogModuloPotencia, '/AddLogModuloPotencia')
+api.add_resource(AddPowerModule, '/AddPowerModule')
+api.add_resource(AddLogPowerModule, '/AddLogPowerModule')
 
 if __name__ == '__main__':
     #app.run(host='0.0.0.0:5000')
