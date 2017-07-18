@@ -465,5 +465,5 @@ api.add_resource(AddPowerModule, '/AddPowerModule')
 api.add_resource(AddLogPowerModule, '/AddLogPowerModule')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0:80')
+    app.run(host='0.0.0.0:6010')
     #app.run(debug=True)
