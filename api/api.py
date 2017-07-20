@@ -264,19 +264,18 @@ class AddLogFonte(Resource):
         except Exception as e:
             return {'error': str(e)}
 
-class AddBastidor(Resource):
+class AddRack(Resource):
     def post(self):
         try:
-            #TODO: Fill implementation for this resource
             parser = reqparse.RequestParser()
-            #TODO: Add arguments
+            parser.add_argument('numero_serie', type=int)
             args = parser.parse_args()
 
-            #TODO: create variables for callproc
+            _numero_serie           = args['numero_serie']
 
             conn = mysql.connect()
             cursor = conn.cursor()
-            #cursor.callproc('sp_add_bastidor', (_resultado_teste, _numero_serie_dcct))
+            cursor.callproc('sp_add_rack', (_numero_serie,))
 
             data = cursor.fetchall()
 
@@ -288,20 +287,39 @@ class AddBastidor(Resource):
         except Exception as e:
             return {'error': str(e)}
 
-class AddLogBastidor(Resource):
+class AddLogRack(Resource):
     def post(self):
         try:
-            #TODO: Fill implementation for this resource
             parser = reqparse.RequestParser()
-            #TODO: Add arguments
+            parser.add_argument('resultado_teste', type=str)
+            parser.add_argument('numero_serie_bastidor', type=int)
+            parser.add_argument('iout0', type=float)
+            parser.add_argument('iout1', type=float)
+            parser.add_argument('iout2', type=float)
+            parser.add_argument('iout3', type=float)
+            parser.add_argument('delta_iout0', type=float)
+            parser.add_argument('delta_iout1', type=float)
+            parser.add_argument('delta_iout2', type=float)
+            parser.add_argument('delta_iout3', type=float)
+            parser.add_argument('details', type=str)
             args = parser.parse_args()
 
-            #TODO: create variables for callproc
+            _resultado_teste        = args['resultado_teste']
+            _numero_serie_dcct      = args['numero_serie_bastidor']
+            _iout0                  = args['iout0']
+            _iout1                  = args['iout1']
+            _iout2                  = args['iout2']
+            _iout3                  = args['iout3']
+            _delta_iout0            = args['delta_iout0']
+            _delta_iout1            = args['delta_iout1']
+            _delta_iout2            = args['delta_iout2']
+            _delta_iout3            = args['delta_iout3']
 
             conn = mysql.connect()
             cursor = conn.cursor()
-            #cursor.callproc('sp_add_log_bastidor', (_resultado_teste, _numero_serie_dcct))
-
+            cursor.callproc('sp_add_log_rack', (_resultado_teste, _numero_serie_rack, _iout0,
+                                                _iout1, _iout2, _iout3, _delta_iout0, _delta_iout1,
+                                                _delta_iout2, _delta_iout3))
             data = cursor.fetchall()
 
             if len(data) is 0:
@@ -457,8 +475,8 @@ api.add_resource(AddDcct, '/AddDcct')
 api.add_resource(AddLogDcct, '/AddLogDcct')
 api.add_resource(AddFonte, '/AddFonte')
 api.add_resource(AddLogFonte, '/AddLogFonte')
-api.add_resource(AddBastidor, '/AddBastidor')
-api.add_resource(AddLogBastidor, '/AddLogBastidor')
+api.add_resource(AddRack, '/AddRack')
+api.add_resource(AddLogRack, '/AddLogRack')
 api.add_resource(AddUdc, '/AddUdc')
 api.add_resource(AddLogUdc, '/AddLogUdc')
 api.add_resource(AddPowerModule, '/AddPowerModule')
