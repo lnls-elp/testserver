@@ -413,11 +413,24 @@ class AddLogPowerModule(Resource):
             parser.add_argument('iload3', type=float)
             parser.add_argument('iload4', type=float)
             parser.add_argument('iload5', type=float)
-            parser.add_argument('iload6', type=float)
-            parser.add_argument('iload7', type=float)
-            parser.add_argument('iload8', type=float)
-            parser.add_argument('iload9', type=float)
-            parser.add_argument('iload10', type=float)
+            parser.add_argument('vload0', type=float)
+            parser.add_argument('vload1', type=float)
+            parser.add_argument('vload2', type=float)
+            parser.add_argument('vload3', type=float)
+            parser.add_argument('vload4', type=float)
+            parser.add_argument('vload5', type=float)
+            parser.add_argument('vdclink0', type=float)
+            parser.add_argument('vdclink1', type=float)
+            parser.add_argument('vdclink2', type=float)
+            parser.add_argument('vdclink3', type=float)
+            parser.add_argument('vdclink4', type=float)
+            parser.add_argument('vdclink5', type=float)
+            parser.add_argument('temperatura0', type=float)
+            parser.add_argument('temperatura1', type=float)
+            parser.add_argument('temperatura2', type=float)
+            parser.add_argument('temperatura3', type=float)
+            parser.add_argument('temperatura4', type=float)
+            parser.add_argument('temperatura5', type=float)
             parser.add_argument('details', type=str)
 
             args = parser.parse_args()
@@ -442,12 +455,12 @@ class AddLogPowerModule(Resource):
             _vdclink3               = args['vdclink3']
             _vdclink4               = args['vdclink4']
             _vdclink5               = args['vdclink5']
-            _temperatura            = args['temperatura0']
-            _temperatura            = args['temperatura1']
-            _temperatura            = args['temperatura2']
-            _temperatura            = args['temperatura3']
-            _temperatura            = args['temperatura4']
-            _temperatura            = args['temperatura5']
+            _temperatura0           = args['temperatura0']
+            _temperatura1           = args['temperatura1']
+            _temperatura2           = args['temperatura2']
+            _temperatura3           = args['temperatura3']
+            _temperatura4           = args['temperatura4']
+            _temperatura5           = args['temperatura5']
             _details                = args['details']
 
             conn = mysql.connect()
@@ -457,7 +470,7 @@ class AddLogPowerModule(Resource):
                             _vload1, _vload2, _vload3, _vload4, _vload5, _vdclink0, _vdclink1,
                             _vdclink2, _vdclink3, _vdclink4, _vdclink5, _temperatura0,
                             _temperatura1, _temperatura2, _temperatura3, _temperatura4,
-                            _temperatura5,))
+                            _temperatura5, _details))
 
             data = cursor.fetchall()
 
