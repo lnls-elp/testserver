@@ -6,18 +6,18 @@ delimiter $$
 use testserverdb$$
 create procedure sp_add_hradc
 (
-		in p_numero_serie					int,
-        in p_variante						varchar(45),
-		in p_data_instalacao				datetime,
-		in p_nome_operador					varchar(120),
-		in p_resistor_burden				double,
-		in p_frequencia_corte				double,
-		in p_ordem_filtro					int,
-		in p_controlador_temperatura		int,
-		in p_amplificador_burden			varchar(45),
-		in p_jumper_gnd						int,
-		in p_jumper_burden					int,
-		in p_filtro_modo_comum				int
+	in p_numero_serie					bigint(15),
+    in p_variante						varchar(45),
+	in p_data_instalacao				datetime,
+	in p_nome_operador					varchar(120),
+	in p_resistor_burden				double,
+	in p_frequencia_corte				double,
+	in p_ordem_filtro					int,
+	in p_controlador_temperatura		int,
+	in p_amplificador_burden			varchar(45),
+	in p_jumper_gnd						int,
+	in p_jumper_burden					int,
+	in p_filtro_modo_comum				int
 )
 
 begin
@@ -65,7 +65,7 @@ use testserverdb$$
 create procedure sp_add_log_hradc
 (
         in p_resultado_teste				varchar(45),
-		in p_numero_serie_hradc       		int
+		in p_numero_serie_hradc       		bigint(15)
 )
 
 begin
@@ -90,18 +90,18 @@ delimiter $$
 use testserverdb$$
 create procedure sp_add_calib_hradc
 (
-        in p_temperatura_hradc				double,
-		in p_temperatura_dmm         		double,
-        in p_temperatura_fonte              double,
-        in p_nome_operador                  varchar(120),
-        in p_ganho_vin                      double,
-        in p_offset_vin                     double,
-        in p_ganho_lin                      double,
-        in p_offset_lin                     double,
-        in p_vref_p                         double,
-        in p_vref_n                         double,
-        in p_gnd                            double,
-        in p_numero_serie_hradc             int
+    in p_temperatura_hradc				double,
+	in p_temperatura_dmm         		double,
+    in p_temperatura_fonte              double,
+    in p_nome_operador                  varchar(120),
+    in p_ganho_vin                      double,
+    in p_offset_vin                     double,
+    in p_ganho_lin                      double,
+    in p_offset_lin                     double,
+    in p_vref_p                         double,
+    in p_vref_n                         double,
+    in p_gnd                            double,
+    in p_numero_serie_hradc             bigint(15)
 )
 
 begin

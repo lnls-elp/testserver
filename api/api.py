@@ -305,7 +305,7 @@ class AddLogRack(Resource):
             args = parser.parse_args()
 
             _resultado_teste        = args['resultado_teste']
-            _numero_serie_dcct      = args['numero_serie_bastidor']
+            _numero_serie_rack      = args['numero_serie_bastidor']
             _iout0                  = args['iout0']
             _iout1                  = args['iout1']
             _iout2                  = args['iout2']
@@ -314,12 +314,13 @@ class AddLogRack(Resource):
             _delta_iout1            = args['delta_iout1']
             _delta_iout2            = args['delta_iout2']
             _delta_iout3            = args['delta_iout3']
+            _details                = args['details']
 
             conn = mysql.connect()
             cursor = conn.cursor()
             cursor.callproc('sp_add_log_rack', (_resultado_teste, _numero_serie_rack, _iout0,
                                                 _iout1, _iout2, _iout3, _delta_iout0, _delta_iout1,
-                                                _delta_iout2, _delta_iout3))
+                                                _delta_iout2, _delta_iout3, _details))
             data = cursor.fetchall()
 
             if len(data) is 0:
