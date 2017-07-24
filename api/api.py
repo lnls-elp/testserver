@@ -144,13 +144,15 @@ class AddDcct(Resource):
         try:
             parser = reqparse.RequestParser()
             parser.add_argument('numero_serie', type=int)
+            parser.add_argument('variante', type=str)
             args = parser.parse_args()
 
-            _numero_serie           = args['numero_serie']
+            _numero_serie   = args['numero_serie']
+            _variante       = args['variante']
 
             conn = mysql.connect()
             cursor = conn.cursor()
-            cursor.callproc('sp_add_dcct', (_numero_serie,))
+            cursor.callproc('sp_add_dcct', (_numero_serie, _variante))
             data = cursor.fetchall()
 
             if len(data) is 0:
@@ -166,6 +168,7 @@ class AddLogDcct(Resource):
     def post(self):
         try:
             parser = reqparse.RequestParser()
+            parser.add_argument('id_canal_dcct', type=int)
             parser.add_argument('resultado_teste', type=str)
             parser.add_argument('numero_serie_dcct', type=int)
             parser.add_argument('iload0', type=float)
@@ -183,6 +186,7 @@ class AddLogDcct(Resource):
 
             args = parser.parse_args()
 
+            _id_canal_dcct          = args['id_canal_dcct']
             _resultado_teste        = args['resultado_teste']
             _numero_serie_dcct      = args['numero_serie_dcct']
             _iload0                 = args['iload0']
@@ -201,10 +205,11 @@ class AddLogDcct(Resource):
 
             conn = mysql.connect()
             cursor = conn.cursor()
-            cursor.callproc('sp_add_log_dcct', (_resultado_teste, _numero_serie_dcct,
-                                                _iload0, _iload1, _iload2, _iload3,
-                                                _iload4, _iload5, _iload6, _iload7,
-                                                _iload8, _iload9, _iload10, _details))
+            cursor.callproc('sp_add_log_dcct', (_id_canal_dcct, _resultado_teste,
+                                                _numero_serie_dcct, _iload0, _iload1,
+                                                _iload2, _iload3, _iload4, _iload5,
+                                                _iload6, _iload7, _iload8, _iload9,
+                                                _iload10, _details))
 
             data = cursor.fetchall()
 

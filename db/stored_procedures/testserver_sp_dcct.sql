@@ -6,7 +6,8 @@ delimiter $$
 use testserverdb$$
 create procedure sp_add_dcct
 (
-		in p_numero_serie					bigint(15)
+		in p_numero_serie					bigint(15),
+        in p_variante                       varchar(45)
 )
 
 begin
@@ -15,11 +16,13 @@ if (select exists (select 1 from Dcct where numero_serie = p_numero_serie)) then
 else
 insert into Dcct
 (
-	numero_serie
+	numero_serie,
+    variante
 )
 values
 (
-    p_numero_serie
+    p_numero_serie,
+    p_variante
 );
 end if;
 end$$
@@ -31,6 +34,7 @@ delimiter $$
 use testserverdb$$
 create procedure sp_add_log_dcct
 (
+    in p_id_canal_dcct          int,
     in p_resultado_teste		varchar(45),
 	in p_numero_serie_dcct      bigint(15),
 	in p_iload0					double,
@@ -51,6 +55,7 @@ begin
 insert into LogDcct
 (
 	data,
+    id_canal_dcct,
     resultado_teste,
     numero_serie_dcct,
 	iload0,
@@ -69,6 +74,7 @@ insert into LogDcct
 values
 (
     now(),
+    p_id_canal_dcct,
     p_resultado_teste,
     p_numero_serie_dcct,
 	p_iload0,
