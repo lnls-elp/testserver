@@ -221,19 +221,18 @@ class AddLogDcct(Resource):
         except Exception as e:
             return {'error': str(e)}
 
-class AddFonte(Resource):
+class AddPowerSupply(Resource):
     def post(self):
         try:
-            #TODO: Fill implementation for this resource
             parser = reqparse.RequestParser()
-            #TODO: Add arguments
+            parser.add_argument('numero_serie', type=int)
             args = parser.parse_args()
 
-            #TODO: create variables for callproc
+            _numero_serie           = args['numero_serie']
 
             conn = mysql.connect()
             cursor = conn.cursor()
-            #cursor.callproc('sp_add_fonte', (_resultado_teste, _numero_serie_dcct))
+            cursor.callproc('sp_add_power_supply', (_numero_serie,))
 
             data = cursor.fetchall()
 
@@ -245,19 +244,50 @@ class AddFonte(Resource):
         except Exception as e:
             return {'error': str(e)}
 
-class AddLogFonte(Resource):
+class AddLogPowerSupply(Resource):
     def post(self):
         try:
-            #TODO: Fill implementation for this resource
             parser = reqparse.RequestParser()
-            #TODO: Add arguments
+            parser.add_argument('id_canal_fonte', type=int)
+            parser.add_argument('resultado_teste', type=str)
+            parser.add_argument('numero_serie_fonte', type=int)
+            parser.add_argument('resultado_teste_on_off', type=str)
+            parser.add_argument('iout_mais_20_duty_cycle', type=float)
+            parser.add_argument('iout_menos_20_duty_cycle', type=float)
+            parser.add_argument('iout0', type=float)
+            parser.add_argument('iout1', type=float)
+            parser.add_argument('vout0', type=float)
+            parser.add_argument('vout1', type=float)
+            parser.add_argument('vdclink0', type=float)
+            parser.add_argument('vdclink1', type=float)
+            parser.add_argument('temperatura0', type=float)
+            parser.add_argument('temperatura1', type=float)
+            parser.add_argument('details', type=str)
             args = parser.parse_args()
 
-            #TODO: create variables for callproc
+            _id_canal_ps                = args['id_canal_fonte']
+            _resultado_teste            = args['resultado_teste']
+            _numero_serie_ps            = args['numero_serie_fonte']
+            _result_test_on_off         = args['resultado_teste_on_off']
+            _iout_add_20_duty_cycle     = args['iout_mais_20_duty_cycle']
+            _iout_less_20_duty_cycle    = args['iout_menos_20_duty_cycle']
+            _iout0                      = args['iout0']
+            _iout1                      = args['iout1']
+            _vout0                      = args['vout0']
+            _vout1                      = args['vout1']
+            _vdclink0                   = args['vdclink0']
+            _vdclink1                   = args['vdclink1']
+            _temperatura0               = args['temperatura0']
+            _temperatura1               = args['temperatura1']
+            _details                    = args['details']
 
             conn = mysql.connect()
             cursor = conn.cursor()
-            #cursor.callproc('sp_add_log_fonte', (_resultado_teste, _numero_serie_dcct))
+            cursor.callproc('sp_add_log_power_supply', (_id_canal_ps, _resultado_teste, _numero_serie_ps,
+                                                        _result_test_on_off, _iout_add_20_duty_cycle,
+                                                        _iout_less_20_duty_cycle, _iout0, _iout1, _vout0,
+                                                        _vout1, _vdclink0, _vdclink1, _temperatura0,
+                                                        _temperatura1, _details))
 
             data = cursor.fetchall()
 
@@ -339,16 +369,15 @@ class AddLogRack(Resource):
 class AddUdc(Resource):
     def post(self):
         try:
-            #TODO: Fill implementation for this resource
             parser = reqparse.RequestParser()
-            #TODO: Add arguments
+            parser.add_argument('numero_serie', type=int)
             args = parser.parse_args()
 
-            #TODO: create variables for callproc
+            _numero_serie           = args['numero_serie']
 
             conn = mysql.connect()
             cursor = conn.cursor()
-            #cursor.callproc('sp_add_udc', (_resultado_teste, _numero_serie_dcct))
+            cursor.callproc('sp_add_udc', (_numero_serie, ))
 
             data = cursor.fetchall()
 
@@ -363,16 +392,19 @@ class AddUdc(Resource):
 class AddLogUdc(Resource):
     def post(self):
         try:
-            #TODO: Fill implementation for this resource
             parser = reqparse.RequestParser()
-            #TODO: Add arguments
+            parser.add_argument('resultado_teste', type=str)
+            parser.add_argument('numero_serie_udc', type=int)
+            parser.add_argument('details', type=str)
             args = parser.parse_args()
 
-            #TODO: create variables for callproc
+            _resultado_teste    = args['resultado_teste']
+            _numero_serie_udc   = args['numero_serie_udc']
+            _details            = args['details']
 
             conn = mysql.connect()
             cursor = conn.cursor()
-            #cursor.callproc('sp_add_log_udc', (_resultado_teste, _numero_serie_dcct))
+            cursor.callproc('sp_add_log_udc', (_resultado_teste, _numero_serie_udc, _details))
 
             data = cursor.fetchall()
 
@@ -492,8 +524,8 @@ api.add_resource(AddLogHradc, '/AddLogHradc')
 api.add_resource(AddCalibHradc, '/AddCalibHradc')
 api.add_resource(AddDcct, '/AddDcct')
 api.add_resource(AddLogDcct, '/AddLogDcct')
-api.add_resource(AddFonte, '/AddFonte')
-api.add_resource(AddLogFonte, '/AddLogFonte')
+api.add_resource(AddPowerSupply, '/AddPowerSupply')
+api.add_resource(AddLogPowerSupply, '/AddLogPowerSupply')
 api.add_resource(AddRack, '/AddRack')
 api.add_resource(AddLogRack, '/AddLogRack')
 api.add_resource(AddUdc, '/AddUdc')
