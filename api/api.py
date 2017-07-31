@@ -395,16 +395,41 @@ class AddLogUdc(Resource):
             parser = reqparse.RequestParser()
             parser.add_argument('resultado_teste', type=str)
             parser.add_argument('numero_serie_udc', type=int)
+            parser.add_argument('io_expander', type=str)
+            parser.add_argument('leds', type=str)
+            parser.add_argument('buzzer', type=str)
+            parser.add_argument('eeprom', type=str)
+            parser.add_argument('flash', type=str)
+            parser.add_argument('ram', type=str)
+            parser.add_argument('rtc_communication', type=str)
+            parser.add_argument('rtc_interrupt', type=str)
+            parser.add_argument('sensor_temperatura', type=str)
+            parser.add_argument('control_aliment_plano_isolado', type=str)
+            parser.add_argument('rs485', type=str)
             parser.add_argument('details', type=str)
             args = parser.parse_args()
 
             _resultado_teste    = args['resultado_teste']
             _numero_serie_udc   = args['numero_serie_udc']
+            _io_expander        = args['io_expander']
+            _leds               = args['leds']
+            _buzzer             = args['buzzer']
+            _eeprom             = args['eeprom']
+            _flash              = args['flash']
+            _ram                = args['ram']
+            _rtc_communication  = args['rtc_communication']
+            _rtc_interrupt      = args['rtc_interrupt']
+            _sensor_temperatura = args['sensor_temperatura']
+            _control_plano_isol = args['control_aliment_plano_isolado']
+            _rs485              = args['rs485']
             _details            = args['details']
 
             conn = mysql.connect()
             cursor = conn.cursor()
-            cursor.callproc('sp_add_log_udc', (_resultado_teste, _numero_serie_udc, _details))
+            cursor.callproc('sp_add_log_udc', (_resultado_teste, _numero_serie_udc, _io_expander,
+                                                _leds, _buzzer, _eeprom, _flash, _ram, _rtc_communication,
+                                                _rtc_interrupt, _sensor_temperatura, _control_plano_isol,
+                                                _rs485, _details))
 
             data = cursor.fetchall()
 
