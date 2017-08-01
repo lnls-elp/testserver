@@ -544,6 +544,13 @@ class AddLogPowerModule(Resource):
         except Exception as e:
             return {'error': str(e)}
 
+class Teste(Resource):
+    def get(self):
+        try:
+            return {'StatusCode':'200', 'Message':'Hello, Sirius'}
+        except Exception as e:
+            return {'error':str(e)}
+
 api.add_resource(AddHradc, '/AddHradc')
 api.add_resource(AddLogHradc, '/AddLogHradc')
 api.add_resource(AddCalibHradc, '/AddCalibHradc')
