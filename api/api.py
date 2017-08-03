@@ -20,11 +20,10 @@ class AddHradc(Resource):
         try:
             #Parse the arguments
             parser = reqparse.RequestParser()
-            #parser.add_argument('numero_serie', type=int, help='Número de série para o equipamento')
             parser.add_argument('numero_serie', type=int)
             parser.add_argument('variante', type=str)
-            parser.add_argument('data_instalacao', type=str)
-            parser.add_argument('nome_operador', type=str)
+            #parser.add_argument('data_instalacao', type=str)
+            #parser.add_argument('nome_operador', type=str)
             parser.add_argument('resistor_burden', type=float)
             parser.add_argument('frequencia_corte', type=float)
             parser.add_argument('ordem_filtro', type=int)
@@ -37,8 +36,8 @@ class AddHradc(Resource):
 
             _numero_serie           = args['numero_serie']
             _variante               = args['variante']
-            _data_instal            = args['data_instalacao']
-            _nome_operador          = args['nome_operador']
+            #_data_instal            = args['data_instalacao']
+            #_nome_operador          = args['nome_operador']
             _resistor_burden        = args['resistor_burden']
             _freq_corte             = args['frequencia_corte']
             _ordem_filtro           = args['ordem_filtro']
@@ -50,10 +49,9 @@ class AddHradc(Resource):
 
             conn = mysql.connect()
             cursor = conn.cursor()
-            cursor.callproc('sp_add_hradc', (_numero_serie, _variante, _data_instal, _nome_operador,
-                                                _resistor_burden, _freq_corte, _ordem_filtro,
-                                                _control_temperatura, _amplificador_burden, _jumper_gnd,
-                                                _jumper_burden, _filtro_modo_comum))
+            cursor.callproc('sp_add_hradc', (_numero_serie, _variante, _resistor_burden, _freq_corte,
+                                                _ordem_filtro, _control_temperatura, _amplificador_burden,
+                                                _jumper_gnd, _jumper_burden, _filtro_modo_comum))
             data = cursor.fetchall()
 
             if len(data) is 0:
@@ -71,14 +69,36 @@ class AddLogHradc(Resource):
             parser = reqparse.RequestParser()
             parser.add_argument('resultado_teste', type=str)
             parser.add_argument('numero_serie_hradc', type=int)
+            parser.add_argument('id_medida', type=int)
+            parser.add_argument('gnd', type=float)
+            parser.add_argument('vref_p', type=float)
+            parser.add_argument('vref_n', type=float)
+            parser.add_argument('temperatura', type=float)
+            parser.add_argument('vin_p', type=float)
+            parser.add_argument('vin_n', type=float)
+            parser.add_argument('lin_p', type=float)
+            parser.add_argument('lin_n', type=float)
+            parser.add_argument('details', type=str)
             args = parser.parse_args()
 
             _resultado_teste        = args['resultado_teste']
             _numero_serie_hradc     = args['numero_serie_hradc']
+            _id_medida              = args['id_medida']
+            _gnd                    = args['gnd']
+            _vref_p                 = args['vref_p']
+            _vref_n                 = args['vref_n']
+            _temp                   = args['temperatura']
+            _vin_p                  = args['vin_p']
+            _vin_n                  = args['vin_n']
+            _lin_p                  = args['lin_p']
+            _lin_n                  = args['lin_n']
+            _details                = args['details']
 
             conn = mysql.connect()
             cursor = conn.cursor()
-            cursor.callproc('sp_add_log_hradc', (_resultado_teste, _numero_serie_hradc))
+            cursor.callproc('sp_add_log_hradc', (_resultado_teste, _numero_serie_hradc, _id_medida,
+                                                    _gnd, _vref_p, _vref_n, _temp, _vin_p, _vin_n,
+                                                    _lin_p, _lin_n, _details))
 
             data = cursor.fetchall()
 
@@ -97,7 +117,7 @@ class AddCalibHradc(Resource):
             parser.add_argument('temperatura_hradc', type=float)
             parser.add_argument('temperatura_dmm', type=float)
             parser.add_argument('temperatura_fonte', type=float)
-            parser.add_argument('nome_operador', type=str)
+            #parser.add_argument('nome_operador', type=str)
             parser.add_argument('ganho_vin', type=float)
             parser.add_argument('offset_vin', type=float)
             parser.add_argument('ganho_lin', type=float)
@@ -111,7 +131,7 @@ class AddCalibHradc(Resource):
             _temp_hradc             = args['temperatura_hradc']
             _temp_dmm               = args['temperatura_dmm']
             _temp_fonte             = args['temperatura_fonte']
-            _nome_operador          = args['nome_operador']
+            #_nome_operador          = args['nome_operador']
             _ganho_vin              = args['ganho_vin']
             _offset_vin             = args['offset_vin']
             _ganho_lin              = args['ganho_lin']
@@ -124,9 +144,9 @@ class AddCalibHradc(Resource):
             conn = mysql.connect()
             cursor = conn.cursor()
             cursor.callproc('sp_add_calib_hradc', (_temp_hradc, _temp_dmm, _temp_fonte,
-                                                    _nome_operador, ganho_vin, _offset_vin,
-                                                    _ganho_lin, _offset_lin, _vref_p,
-                                                    _vref_n, _gnd, _numero_serie_hradc))
+                                                    _ganho_vin, _offset_vin, _ganho_lin,
+                                                    _offset_lin, _vref_p, _vref_n, _gnd,
+                                                    _numero_serie_hradc))
 
             data = cursor.fetchall()
 
