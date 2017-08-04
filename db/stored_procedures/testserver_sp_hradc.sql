@@ -105,7 +105,7 @@ values
 (
     now(),
     p_resultado_teste,
-    p_numero_serie_hradc
+    p_numero_serie_hradc,
     p_id_medida,
     p_gnd,
     p_vref_p,

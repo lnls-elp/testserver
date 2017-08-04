@@ -29,9 +29,9 @@ class AddHradc(Resource):
             parser.add_argument('ordem_filtro', type=int)
             parser.add_argument('controlador_temperatura', type=int)
             parser.add_argument('amplificador_burden', type=str)
-            parser.add_argument('jumper_gnd', type=int)
-            parser.add_argument('jumper_burden',type=int)
-            parser.add_argument('filtro_modo_comum', type=int)
+            parser.add_argument('jumper_gnd', type=bool)
+            parser.add_argument('jumper_burden',type=bool)
+            parser.add_argument('filtro_modo_comum', type=bool)
             args = parser.parse_args()
 
             _numero_serie           = args['numero_serie']
