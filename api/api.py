@@ -268,6 +268,7 @@ class AddLogPowerSupply(Resource):
     def post(self):
         try:
             parser = reqparse.RequestParser()
+            parser.add_argument('id_tipo_teste_fonte', type=int)
             parser.add_argument('id_canal_fonte', type=int)
             parser.add_argument('resultado_teste', type=str)
             parser.add_argument('numero_serie_fonte', type=int)
@@ -285,6 +286,7 @@ class AddLogPowerSupply(Resource):
             parser.add_argument('details', type=str)
             args = parser.parse_args()
 
+            _id_tipo_teste              = args['id_tipo_teste_fonte']
             _id_canal_ps                = args['id_canal_fonte']
             _resultado_teste            = args['resultado_teste']
             _numero_serie_ps            = args['numero_serie_fonte']
@@ -303,11 +305,11 @@ class AddLogPowerSupply(Resource):
 
             conn = mysql.connect()
             cursor = conn.cursor()
-            cursor.callproc('sp_add_log_power_supply', (_id_canal_ps, _resultado_teste, _numero_serie_ps,
-                                                        _result_test_on_off, _iout_add_20_duty_cycle,
-                                                        _iout_less_20_duty_cycle, _iout0, _iout1, _vout0,
-                                                        _vout1, _vdclink0, _vdclink1, _temperatura0,
-                                                        _temperatura1, _details))
+            cursor.callproc('sp_add_log_power_supply', (_id_tipo_teste, _id_canal_ps, _resultado_teste,
+                                                        _numero_serie_ps, _result_test_on_off,
+                                                        _iout_add_20_duty_cycle, _iout_less_20_duty_cycle,
+                                                        _iout0, _iout1, _vout0, _vout1, _vdclink0,
+                                                        _vdclink1, _temperatura0, _temperatura1, _details))
 
             data = cursor.fetchall()
 
