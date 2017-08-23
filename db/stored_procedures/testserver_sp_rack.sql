@@ -77,3 +77,17 @@ values
 );
 end$$
 delimiter ;
+
+drop procedure if exists sp_get_rack_report;
+
+delimiter $$
+use testserverdb$$
+create procedure sp_get_rack_report()
+begin
+select
+    data, numero_serie_bastidor, iout0, iout1, iout2, iout3,
+    delta_iout0, delta_iout1, delta_iout2, delta_iout3,
+    details, resultado_teste
+from LogBastidor;
+end$$
+delimiter ;

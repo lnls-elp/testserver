@@ -92,3 +92,21 @@ values
 );
 end$$
 delimiter ;
+
+drop procedure if exists sp_get_ps_report;
+
+delimiter $$
+use testserverdb$$
+create procedure sp_get_ps_report()
+begin
+select
+    LogFonte.data, LogFonte.numero_serie_fonte, CanalFonte.descricao, TipoTesteFonte.descricao,
+    LogFonte.gnd, LogFonte.resultado_teste_on_off, LogFonte.iout_mais_20_duty_cycle,
+    LogFonte.iout_menos_20_duty_cycle, LogFonte.iout0, LogFonte.iout1, LogFonte.vout0, LogFonte.vout1,
+    LogFonte.vdclink0, LogFonte.vdclink1, LogFonte.temperatura0, LogFonte.temperatura1,
+    LogFonte.resultado_teste, LogFonte.details
+from LogFonte
+inner join CanalFonte on LogFonte.id_canal_fonte = CanalFonte.id
+inner join TipoTesteFonte on LogFonte.id_tipo_teste_fonte = TipoTesteFonte.id;
+end$$
+delimiter ;

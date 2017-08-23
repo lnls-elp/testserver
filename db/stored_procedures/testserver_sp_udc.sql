@@ -113,3 +113,14 @@ values
 );
 end$$
 delimiter ;
+
+drop procedure if exists sp_get_udc_report;
+
+delimiter $$
+use testserverdb$$
+create procedure sp_get_udc_report()
+begin
+select *
+from LogUdc;
+end$$
+delimiter ;

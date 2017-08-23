@@ -681,6 +681,12 @@ api.add_resource(AddPowerModule, '/AddPowerModule')
 api.add_resource(AddLogPowerModule, '/AddLogPowerModule')
 
 api.add_resource(DcctReport, '/DcctReport')
+api.add_resource(HradcReport, '/HradcReport')
+api.add_resource(HradcCalibReport, '/HradcCalibReport')
+api.add_resource(PowerSupplyReport, '/PowerSupplyReport')
+api.add_resource(PowerModuleReport, '/PowerModuleReport')
+api.add_resource(RackReport, '/RackReport')
+api.add_resource(UdcReport, '/UdcReport')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

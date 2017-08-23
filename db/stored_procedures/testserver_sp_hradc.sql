@@ -195,6 +195,23 @@ select
     LogHradc.resultado_teste
 from LogHradc
 inner join Hradc on LogHradc.numero_serie_hradc = Hradc.numero_serie
-inner join Medida on LogHradc.id_medida = Medidas.id;
+inner join Medida on LogHradc.id_medida = Medida.id;
+end$$
+delimiter ;
+
+
+drop procedure if exists sp_get_hradc_calib_report;
+delimiter $$
+use testserverdb$$
+create procedure sp_get_hradc_calib_report()
+begin
+select
+    CalibHradc.data, CalibHradc.numero_serie_hradc, CalibHradc.nome_operador,
+    Hradc.variante, CalibHradc.temperatura_hradc, CalibHradc.temperatura_dmm,
+    CalibHradc.temperatura_fonte, CalibHradc.ganho_vin, CalibHradc.offset_vin,
+    CalibHradc.ganho_lin, CalibHradc.offset_lin, CalibHradc.vref_p,
+    CalibHradc.vref_n, CalibHradc.gnd
+from CalibHradc
+inner join Hradc on CalibHradc.numero_serie_hradc = Hradc.numero_serie;
 end$$
 delimiter ;
