@@ -249,6 +249,7 @@ class DcctReport(Resource):
     def get(self):
         try:
             conn = mysql.connect()
+            cursor = conn.cursor()
             cursor.callproc('sp_get_dcct_report')
             data = cursor.fetchall()
             return str(data)
