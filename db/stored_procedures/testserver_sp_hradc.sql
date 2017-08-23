@@ -181,3 +181,20 @@ values
 );
 end$$
 delimiter ;
+
+drop procedure if exists sp_get_hradc_report;
+
+delimiter $$
+use testserverdb$$
+create procedure sp_get_hradc_report()
+begin
+select
+    LogHradc.data, LogHradc.numero_serie_hradc, Hradc.variante, Medida.descricao,
+    LogHradc.gnd, LogHradc.vref_p, LogHradc.vref_n, LogHradc.temperatura,
+    LogHradc.vin_p, LogHradc.vin_n, LogHradc.lin_p, LogHradc.lin_n,
+    LogHradc.resultado_teste
+from LogHradc
+inner join Hradc on LogHradc.numero_serie_hradc = Hradc.numero_serie
+inner join Medida on LogHradc.id_medida = Medidas.id;
+end$$
+delimiter ;

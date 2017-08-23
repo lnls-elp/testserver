@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from flask import Flask
+from flask import jsonify
 from flask_restful import Resource, Api, reqparse
 from flaskext.mysql import MySQL
 
@@ -161,6 +162,28 @@ class AddCalibHradc(Resource):
         except Exception as e:
             return {'erro': str(e)}
 
+class HradcReport(Resource):
+    def get(self):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            cursor.callproc('sp_get_hradc_report')
+            data = cursor.fetchall()
+            return jsonify(data)
+        except Exception as e:
+            return {'error': str(e)}
+
+class HradcCalibReport(Resource):
+    def get(self):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            cursor.callproc('sp_get_hradc_calib_report')
+            data = cursor.fetchall()
+            return jsonify(data)
+        except Exception as e:
+            return {'error': str(e)}
+
 class AddDcct(Resource):
     def post(self):
         try:
@@ -252,7 +275,7 @@ class DcctReport(Resource):
             cursor = conn.cursor()
             cursor.callproc('sp_get_dcct_report')
             data = cursor.fetchall()
-            return str(data)
+            return jsonify(data)
         except Exception as e:
             return {'error': str(e)}
 
@@ -336,6 +359,17 @@ class AddLogPowerSupply(Resource):
         except Exception as e:
             return {'error': str(e)}
 
+class PowerSupplyReport(Resource):
+    def get(self):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            cursor.callproc('sp_get_ps_report')
+            data = cursor.fetchall()
+            return jsonify(data)
+        except Exception as e:
+            return {'error': str(e)}
+
 class AddRack(Resource):
     def post(self):
         try:
@@ -400,6 +434,17 @@ class AddLogRack(Resource):
                 return {'StatusCode':'200', 'Message': 'Sucesso'}
             else:
                 return {'StatusCode':'1000', 'Message': str(data[0])}
+        except Exception as e:
+            return {'error': str(e)}
+
+class RackReport(Resource):
+    def get(self):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            cursor.callproc('sp_get_rack_report')
+            data = cursor.fetchall()
+            return jsonify(data)
         except Exception as e:
             return {'error': str(e)}
 
@@ -493,6 +538,17 @@ class AddLogUdc(Resource):
                 return {'StatusCode':'200', 'Message': 'Sucesso'}
             else:
                 return {'StatusCode':'1000', 'Message': str(data[0])}
+        except Exception as e:
+            return {'error': str(e)}
+
+class UdcReport(Resource):
+    def get(self):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            cursor.callproc('sp_get_udc_report')
+            data = cursor.fetchall()
+            return jsonify(data)
         except Exception as e:
             return {'error': str(e)}
 
@@ -596,6 +652,17 @@ class AddLogPowerModule(Resource):
                 return {'StatusCode':'200', 'Message': 'Sucesso'}
             else:
                 return {'StatusCode':'1000', 'Message': str(data[0])}
+        except Exception as e:
+            return {'error': str(e)}
+
+class PowerModuleReport(Resource):
+    def get(self):
+        try:
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            cursor.callproc('sp_get_pm_report')
+            data = cursor.fetchall()
+            return jsonify(data)
         except Exception as e:
             return {'error': str(e)}
 
