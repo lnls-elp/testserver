@@ -191,6 +191,7 @@ class AddLogDcct(Resource):
             parser.add_argument('id_canal_dcct', type=int)
             parser.add_argument('resultado_teste', type=str)
             parser.add_argument('numero_serie_dcct', type=int)
+            parser.add_argument('iload_desligado', type=float)
             parser.add_argument('iload0', type=float)
             parser.add_argument('iload1', type=float)
             parser.add_argument('iload2', type=float)
@@ -209,6 +210,7 @@ class AddLogDcct(Resource):
             _id_canal_dcct          = args['id_canal_dcct']
             _resultado_teste        = args['resultado_teste']
             _numero_serie_dcct      = args['numero_serie_dcct']
+            _iload_off              = args['iload_desligado']
             _iload0                 = args['iload0']
             _iload1                 = args['iload1']
             _iload2                 = args['iload2']
@@ -226,10 +228,10 @@ class AddLogDcct(Resource):
             conn = mysql.connect()
             cursor = conn.cursor()
             cursor.callproc('sp_add_log_dcct', (_id_canal_dcct, _resultado_teste,
-                                                _numero_serie_dcct, _iload0, _iload1,
-                                                _iload2, _iload3, _iload4, _iload5,
-                                                _iload6, _iload7, _iload8, _iload9,
-                                                _iload10, _details))
+                                                _numero_serie_dcct, _iload_off, _iload0,
+                                                _iload1, _iload2, _iload3, _iload4,
+                                                _iload5, _iload6, _iload7, _iload8,
+                                                _iload9, _iload10, _details))
 
             data = cursor.fetchall()
 
@@ -238,6 +240,16 @@ class AddLogDcct(Resource):
                 return {'StatusCode':'200', 'Message': 'Sucesso'}
             else:
                 return {'StatusCode':'1000', 'Message': str(data[0])}
+        except Exception as e:
+            return {'error': str(e)}
+
+class DcctReport(Resource):
+    def get(self):
+        try:
+            conn = mysql.connect()
+            cursor.callproc('sp_get_dcct_report')
+            data = cursor.fetchall()
+            return str(data)
         except Exception as e:
             return {'error': str(e)}
 
@@ -597,6 +609,8 @@ api.add_resource(AddUdc, '/AddUdc')
 api.add_resource(AddLogUdc, '/AddLogUdc')
 api.add_resource(AddPowerModule, '/AddPowerModule')
 api.add_resource(AddLogPowerModule, '/AddLogPowerModule')
+
+api.add_resource(DcctReport, '/DcctReport')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
