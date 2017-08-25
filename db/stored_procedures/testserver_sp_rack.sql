@@ -87,7 +87,7 @@ begin
 select
     data, numero_serie_bastidor, iout0, iout1, iout2, iout3,
     delta_iout0, delta_iout1, delta_iout2, delta_iout3,
-    details, resultado_teste
+    resultado_teste, details
 from LogBastidor;
 end$$
 delimiter ;

@@ -137,7 +137,7 @@ select
     iload3, iload4, iload5, vload0, vload1, vload2,
     vload3, vload4, vload5, vdclink0, vdclink1, vdclink2,
     vdclink3, vdclink4, vdclink5, temperatura0, temperatura1, temperatura2,
-    temperatura3, temperatura4, temperatura5, details, resultado_teste
+    temperatura3, temperatura4, temperatura5, resultado_teste, details
 from LogModuloPotencia;
 end$$
 delimiter ;
