@@ -532,9 +532,9 @@ class AddLogUdc(Resource):
             cursor = conn.cursor()
             cursor.callproc('sp_add_log_udc', (_resultado_teste, _numero_serie_udc, _io_expander, _leds,
                                                 _buzzer, _eeprom, _flash, _ram, _rtc, _sensor_temperatura,
-                                                _uart, _sdcard, _ethernet_init, _ethernet_ping, _adc_ch_1,
-                                                _adc_ch_2, _adc_ch_3, _adc_ch_4, _adc_ch_5, _adc_ch_6,
-                                                _adc_ch_7, _adc_ch_8, _loopback, _details))
+                                                _control_plano_isol, _uart, _sdcard, _ethernet_init,
+                                                _ethernet_ping, _adc_ch_1, _adc_ch_2, _adc_ch_3, _adc_ch_4,
+                                                _adc_ch_5, _adc_ch_6, _adc_ch_7, _adc_ch_8, _loopback, _details))
 
             data = cursor.fetchall()
 
