@@ -126,7 +126,10 @@ delimiter $$
 use testserverdb$$
 create procedure sp_get_udc_report()
 begin
-select *
+select data, resultado_teste, numero_serie_udc, leds, buzzer, eeprom, flash, ram,
+        control_aliment_plano_isolado, ethernet_ping, loopback, io_expander, rtc,
+        sensor_temperatura, uart, adc_ch_1, adc_ch_2, adc_ch_3, adc_ch_4, adc_ch_5,
+        adc_ch_6, adc_ch_7, adc_ch_8, details
 from LogUdc;
 end$$
 delimiter ;
